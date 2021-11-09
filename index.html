@@ -4,7 +4,40 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="./assets/stylesheets/reset.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="./assets/stylesheets/style.css"
+    />
+    <script defer src="./app.js"></script>
     <title>Library</title>
   </head>
-  <body></body>
+  <body>
+    <main class="main">
+      <h1 class="main__header">Library</h1>
+      <div class="container container--library">
+        <div class="cards"></div>
+      </div>
+      <button class="btn btn--new-book">Add New Book</button>
+    </main>
+    <div class="modal hidden">
+      <button class="btn btn--close-modal">&times;</button>
+      <h2 class="modal__header">Fill in the Details of the Book</h2>
+      <form class="modal__form">
+        <label> Name of Book</label>
+        <input class="form__input form__input--title" type="text" max="64" />
+        <label> Name of Author</label>
+        <input class="form__input form__input--author" type="text" max="32" />
+        <label> Num. of Pages</label>
+        <input class="form__input form__input--pages" type="number" min="1" />
+        <button class="form__btn form__btn--submit">Create!</button>
+      </form>
+    </div>
+    <div class="overlay hidden"></div>
+  </body>
 </html>
