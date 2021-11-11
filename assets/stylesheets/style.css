@@ -14,7 +14,7 @@ html {
   font-size: 16px;
 }
 body {
-  background-color: #fff;
+  background-color: #272727;
 }
 nav,
 button,
@@ -30,6 +30,12 @@ iframe {
   max-width: 100%;
   height: auto;
 }
+:root {
+  --color-salmon: #ffdfd5;
+  --color-coral: #ff652f;
+  --color-cornflowerblue: #77a6f7;
+  --color-seagreen: #14a76c;
+}
 
 /*
 ================================
@@ -43,7 +49,7 @@ iframe {
   width: 5rem;
   height: 3rem;
   padding: 5px;
-  margin: 10px;
+  border: 1px solid black;
 }
 
 /*
@@ -53,69 +59,83 @@ iframe {
  *
  */
 
+.main {
+  width: 100%;
+  padding: 5px;
+}
 .main__header {
   width: 100%;
   padding: 12px;
   font-size: 3.1rem;
+  color: white;
+}
+.btn--new-book {
+  margin: 10px;
 }
 
 /*
  * 
- * Container Library
+ * Cards
  *
  *
  */
 
 .cards {
   display: grid;
-  grid-template-columns: 12rem 12rem 12rem 12rem;
-  grid-auto-rows: 16rem;
+  grid-template-columns: repeat(2, 50%);
+  grid-column-gap: 0.5rem;
   grid-row-gap: 2rem;
-  width: 100%;
+  justify-content: center;
   min-height: 16rem;
-  margin: 12px;
+  padding: 12px;
   font-size: 1rem;
 }
 .cards__item {
-  padding: 12px;
-  margin-right: 5px;
+  height: 16rem;
+  padding: 1rem;
+  overflow: hidden;
   text-align: center;
   word-wrap: break-word;
-  background-color: #e0dede;
+  background-color: var(--color-cornflowerblue);
   border: 1px solid black;
   border-radius: 5px;
 }
 .cards__label--title {
+  min-height: 2rem;
   font-size: 1.3em;
   font-weight: 600;
 }
 .cards__label--author {
+  min-height: 1rem;
   font-style: italic;
   text-align: right;
 }
 .cards__btn--status {
+  display: block;
+  margin: 0 auto;
   margin-top: 3rem;
   font-size: 1em;
   text-transform: uppercase;
-  background-color: grey;
-  border-style: none;
+  background-color: var(--color-salmon);
+  border: 1px solid black;
   border-radius: 50%;
   transition: font-size 400ms;
 }
 .cards__btn--status-active {
   font-size: 1.3em;
-  background-color: orange;
+  background-color: var(--color-seagreen);
   border-radius: 25%;
 }
 .cards__btn--remove {
+  padding: 2px;
   margin-top: 2rem;
-  font-size: 1em;
   text-transform: uppercase;
   background-color: red;
+  border: 2px solid black;
 }
 
 /*
- * Form
+ * Book Form
  *
  *
  *
@@ -126,8 +146,9 @@ iframe {
   top: 50%;
   left: 50%;
   z-index: 10;
+  width: 90%;
   max-width: 40rem;
-  padding: 2rem 5rem;
+  padding: 1rem;
   background-color: white;
   box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.3);
   transition: all 700ms;
@@ -135,15 +156,15 @@ iframe {
 }
 .modal__header {
   margin-bottom: 1.5rem;
-  font-size: 2.25rem;
+  font-size: 1.5rem;
   line-height: 1.5;
 }
 .modal__form {
   display: grid;
-  grid-template-columns: 7fr 1fr;
+  grid-template-columns: 40% 60%;
   gap: 12px;
   align-items: center;
-  margin: 0 1rem;
+  margin: 0 12px;
   font-size: 1rem;
 }
 .form__label {
@@ -152,7 +173,7 @@ iframe {
 }
 .form__input {
   padding: 0.5rem 1.5rem;
-  font-size: 1.7em;
+  font-size: 1.2em;
   border: 1px solid #ddd;
   border-radius: 0.5rem;
 }
@@ -167,7 +188,7 @@ iframe {
 .btn--close-modal {
   position: absolute;
   top: 0;
-  right: 2rem;
+  right: 0;
   font-size: 4rem;
   cursor: pointer;
   background: none;

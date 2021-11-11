@@ -20,15 +20,13 @@
   <body>
     <main class="main">
       <h1 class="main__header">Library</h1>
-      <div class="container container--library">
-        <div class="cards"></div>
-      </div>
-      <button class="btn btn--new-book">Add New Book</button>
+      <div class="cards"></div>
+      <button class="btn btn--new-book">New Book</button>
     </main>
     <div class="modal hidden">
-      <button class="btn btn--close-modal">&times;</button>
+      <button class="btn--close-modal">&times;</button>
       <h2 class="modal__header">Fill in the Details of the Book</h2>
-      <form class="modal__form">
+      <form class="modal__form modal__form--book">
         <label> Name of Book</label>
         <input class="form__input form__input--title" type="text" max="64" />
         <label> Name of Author</label>
