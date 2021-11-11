@@ -31,12 +31,19 @@
       <button class="btn--close-modal">&times;</button>
       <h2 class="modal__header">Fill in the Details of the Book</h2>
       <form class="modal__form modal__form--book">
-        <label> Name of Book</label>
+        <label>Name of Book</label>
         <input class="form__input form__input--title" type="text" max="64" />
-        <label> Name of Author</label>
+        <label>Name of Author</label>
         <input class="form__input form__input--author" type="text" max="32" />
-        <label> Num. of Pages</label>
+        <label>Num. of Pages</label>
         <input class="form__input form__input--pages" type="number" min="1" />
+        <label>Rating</label>
+        <input
+          class="form__input form__input--rating"
+          type="number"
+          min="1"
+          max="5"
+        />
         <button class="form__btn form__btn--submit">Create!</button>
       </form>
     </div>
