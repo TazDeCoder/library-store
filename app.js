@@ -1,30 +1,37 @@
 "use strict";
 
 ////////////////////////////////////////////////
-////// Selecting HTML elements
+////// Selecting HTML Elements
 ///////////////////////////////////////////////
 
 // Inputs
-const inputFormTitle = document.querySelector(".form__input--title");
-const inputFormAuthor = document.querySelector(".form__input--author");
-const inputFormPages = document.querySelector(".form__input--pages");
-const inputFormRating = document.querySelector(".form__input--rating");
+const inputTitle = document.querySelector(".form__input--title");
+const inputAuthor = document.querySelector(".form__input--author");
+const inputPages = document.querySelector(".form__input--pages");
+const inputRating = document.querySelector(".form__input--rating");
+const inputNote = document.querySelector(".form__input--note");
 // Buttons
 const btnNewBook = document.querySelector(".btn--new-book");
-const btnSubmit = document.querySelector(".form__btn--submit");
-const btnCloseModal = document.querySelector(".btn--close-modal");
+const btnNewNote = document.querySelector(".btn--new-note");
+const btnSubmitBook = document.querySelector(".form__btn--submit-book");
+const btnSubmitNote = document.querySelector(".form__btn--submit-note");
+const btnCloseBook = document.querySelector(".btn--close-book");
+const btnCloseNote = document.querySelector(".btn--close-note");
 // Parents
 const cards = document.querySelector(".cards");
-const modal = document.querySelector(".modal");
+const notes = document.querySelector(".notes");
+const notesList = document.querySelector(".notes__list");
+const modalBook = document.querySelector(".modal--book");
+const modalNote = document.querySelector(".modal--note");
 const overlay = document.querySelector(".overlay");
 
 ////////////////////////////////////////////////
-////// Global variables
+////// Book Constructor
 ///////////////////////////////////////////////
 
-let myLibrary;
-
 class Book {
+  books = [];
+
   constructor(
     title = "Unknown",
     author = "Unknown",
@@ -37,19 +44,15 @@ class Book {
     this.pages = pages;
     this.rating = rating;
     this.read = read;
+    this.books.push(title, author, pages, rating, read);
   }
   toggleRead() {
     this.read = !this.read;
   }
 }
 
-(() => init())();
-
-function init() {
-  myLibrary = [];
-  const template = new Book("The Maze Runner", "James Dashner", 375, 4, true);
-  addBookToLibrary(template);
-}
+const template = new Book("The Maze Runner", "James Dashner", 375, 4, true);
+addBookToLibrary(template);
 
 ////////////////////////////////////////////////
 ////// App UI Setup
@@ -60,26 +63,27 @@ function addBookToLibrary(book) {
   const div = document.createElement("div");
   div.classList.add("cards__item");
   div.setAttribute("data-index", cards.childNodes.length);
+  div.addEventListener("click", showNotes);
   // Creating child elements
   // Book author
   const author = document.createElement("p");
-  author.classList.add("cards__label--author");
+  author.classList.add("cards__label", "cards__label--author");
   author.innerHTML = book.author;
   // Book title label
   const title = document.createElement("p");
-  title.classList.add("cards__label--title");
+  title.classList.add("cards__label", "cards__label--title");
   title.innerHTML =
     String(book.title).length <= 48
       ? book.title
       : String(book.title).substring(0, 48).concat("...");
   // Book pages label
   const pages = document.createElement("p");
-  pages.classList.add("cards__label--pages");
+  pages.classList.add("cards__label", "cards__label--pages");
   pages.innerHTML =
     book.pages < 4 ? book.pages : String(book.pages).substring(0, 4);
   // Book rating meter
   const rating = document.createElement("p");
-  rating.classList.add("cards__label--rating");
+  rating.classList.add("cards__label", "cards__label--rating");
   rating.innerHTML =
     book.rating < 5 ? "⭐".repeat(book.rating) : "⭐".repeat(5);
   // Remove book button
@@ -110,40 +114,71 @@ function addBookToLibrary(book) {
 
 function removeBookFromLibrary(node) {
   const idx = node.dataset.index;
-  myLibrary.pop(idx);
+  template.books.pop(idx);
   cards.removeChild(node);
 }
 
-myLibrary.map((book) => addBookToLibrary(book));
+function addNote(txt) {
+  const li = document.createElement("li");
+  li.classList.add("notes__list__item");
+  li.textContent = txt;
+  notesList.appendChild(li);
+}
+
+function showNotes(e) {
+  const clicked = e.target;
+  if (!clicked) return;
+  if (!clicked.classList.contains("cards__btn"))
+    notes.classList.toggle("hidden");
+}
 
 ////////////////////////////////////////////////
 ////// Event Handlers
 ///////////////////////////////////////////////
 
 btnNewBook.addEventListener("click", function () {
-  modal.classList.remove("hidden");
+  modalBook.classList.remove("hidden");
   overlay.classList.remove("hidden");
 });
 
-btnSubmit.addEventListener("click", function (e) {
+btnSubmitBook.addEventListener("click", function (e) {
   e.preventDefault();
-  const title = inputFormTitle.value ? inputFormTitle.value : undefined;
-  const author = inputFormAuthor.value ? inputFormAuthor.value : undefined;
-  const pages = inputFormPages.value ? +inputFormPages.value : undefined;
-  const rating = inputFormRating.value ? +inputFormPages.value : undefined;
+  const title = inputTitle.value ? inputTitle.value : undefined;
+  const author = inputAuthor.value ? inputAuthor.value : undefined;
+  const pages = inputPages.value ? +inputPages.value : undefined;
+  const rating = inputRating.value ? +inputPages.value : undefined;
   const book = new Book(title, author, pages, rating);
   addBookToLibrary(book);
   // Reset input fields
-  inputFormTitle.value =
-    inputFormAuthor.value =
-    inputFormPages.value =
-    inputFormRating.value =
+  inputTitle.value =
+    inputAuthor.value =
+    inputPages.value =
+    inputRating.value =
       "";
-  modal.classList.add("hidden");
+  modalBook.classList.add("hidden");
   overlay.classList.add("hidden");
 });
 
-btnCloseModal.addEventListener("click", function () {
-  modal.classList.add("hidden");
+btnCloseBook.addEventListener("click", function () {
+  modalBook.classList.add("hidden");
+  overlay.classList.add("hidden");
+});
+
+btnNewNote.addEventListener("click", function () {
+  modalNote.classList.remove("hidden");
+  overlay.classList.remove("hidden");
+});
+
+btnSubmitNote.addEventListener("click", function (e) {
+  e.preventDefault();
+  const note = inputNote.value ? inputNote.value : "";
+  addNote(note);
+  inputNote.value = "";
+  modalNote.classList.add("hidden");
+  overlay.classList.add("hidden");
+});
+
+btnCloseNote.addEventListener("click", function () {
+  modalNote.classList.add("hidden");
   overlay.classList.add("hidden");
 });
