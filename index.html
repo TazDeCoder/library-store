@@ -25,26 +25,48 @@
     <main class="main">
       <h1 class="main__header">Library</h1>
       <div class="cards"></div>
-      <button class="btn btn--new-book">New Book</button>
+      <button class="btn--new btn--new-book">New Book</button>
+      <div class="notes hidden">
+        <h2 class="notes__header">Notes</h2>
+        <ul class="notes__list"></ul>
+        <button class="btn--new btn--new-note">Add Note</button>
+        <div class="modal modal--note hidden">
+          <button class="btn--close btn--close-note">&times;</button>
+          <h2 class="modal__header">Create a Note</h2>
+          <form class="modal__form modal__form--note">
+            <textarea
+              class="form__input form__input--note"
+              type="text"
+              max="128"
+            ></textarea>
+            <button class="form__btn form__btn--submit form__btn--submit-note">
+              Create!
+            </button>
+          </form>
+        </div>
+        <div class="overlay hidden"></div>
+      </div>
     </main>
-    <div class="modal hidden">
-      <button class="btn--close-modal">&times;</button>
+    <div class="modal modal--book hidden">
+      <button class="btn--close btn--close-book">&times;</button>
       <h2 class="modal__header">Fill in the Details of the Book</h2>
       <form class="modal__form modal__form--book">
-        <label>Name of Book</label>
+        <label class="form__label">Name of Book</label>
         <input class="form__input form__input--title" type="text" max="64" />
-        <label>Name of Author</label>
+        <label class="form__label">Name of Author</label>
         <input class="form__input form__input--author" type="text" max="32" />
-        <label>Num. of Pages</label>
+        <label class="form__label">Num. of Pages</label>
         <input class="form__input form__input--pages" type="number" min="1" />
-        <label>Rating</label>
+        <label class="form__label">Rating</label>
         <input
           class="form__input form__input--rating"
           type="number"
           min="1"
           max="5"
         />
-        <button class="form__btn form__btn--submit">Create!</button>
+        <button class="form__btn form__btn--submit form__btn--submit-book">
+          Create!
+        </button>
       </form>
     </div>
     <div class="overlay hidden"></div>
