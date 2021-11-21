@@ -1,17 +1,23 @@
 # Library
 
+## Screenshots
+
+![screenshots-0](/assets/images/screenshots-0.png)
+
 ## Description
+
+Build Your Own Personal Library Today!
 
 **Features:**
 
 - Modern GUI
 - Simple Design
-- **NEW**: Book Rating Meter
+- Book Rating Meter
+- **NEW:** Notes Section
 
 **TASK-LIST:**
 
-- [x] Book Rating Meter
-- [ ] Notes Section
+- [x] Notes Section
 - [ ] Save Library (Local)
 
 ## Installation
