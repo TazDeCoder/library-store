@@ -115,6 +115,11 @@ iframe {
   border: 1px solid var(--color-form-input);
   border-radius: 0.5rem;
 }
+.form__input[type="checkbox"] {
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+}
 .form__btn--submit {
   padding: 1.25rem 4.5rem;
   margin-top: 1rem;
