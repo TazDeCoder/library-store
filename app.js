@@ -16,12 +16,12 @@ const btnNewNote = document.querySelector(".btn--new-note");
 const btnCloseNote = document.querySelector(".btn--close-note");
 const btnNewBook = document.querySelector(".btn--new-book");
 const btnCloseBook = document.querySelector(".btn--close-book");
+const btnSaveBooks = document.querySelector(".btn--save-books");
 // Parents
 const cards = document.querySelector(".cards");
 const modalBook = document.querySelector(".modal--book");
 const formBook = document.querySelector(".modal__form--book");
 const notes = document.querySelector(".notes");
-const notesList = document.querySelector(".notes__list");
 const modalNote = document.querySelector(".modal--note");
 const formNote = document.querySelector(".modal__form--note");
 const overlay = document.querySelector(".overlay");
@@ -31,16 +31,12 @@ const overlay = document.querySelector(".overlay");
 ///////////////////////////////////////////////
 
 class Book {
-  books = [];
-
   constructor(title, author, pages, rating, isRead) {
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.rating = rating;
     this.isRead = isRead;
-    this.desc = [title, author, pages, rating, isRead];
-    this.books.push(...this.desc);
   }
 
   toggleRead() {
@@ -53,17 +49,28 @@ class Book {
 ///////////////////////////////////////////////
 
 class App {
+  #books = [];
   template = new Book("The Maze Runner", "James Dashner", 375, 4, true);
 
   constructor() {
-    this._renderBook(this.template);
+    this._getLocalStorage();
+    if (!this.#books.length) {
+      this.#books.push(this.template);
+      this._renderBook(this.template);
+    }
     // Add event listeners
+    btnSaveBooks.addEventListener("click", this._storeBooks.bind(this));
     btnNewBook.addEventListener("click", this._showBookForm);
     btnCloseBook.addEventListener("click", this._hideBookForm);
     formBook.addEventListener("submit", this._newBook.bind(this));
     btnNewNote.addEventListener("click", this._showNoteForm);
     btnCloseNote.addEventListener("click", this._hideNoteForm);
-    formNote.addEventListener("click", this._newNote);
+    formNote.addEventListener("submit", this._newNote.bind(this));
+  }
+
+  _storeBooks() {
+    this._setLocalStorage();
+    return alert("Library has been successfully saved!");
   }
 
   _showBookForm() {
@@ -72,6 +79,9 @@ class App {
   }
 
   _hideBookForm() {
+    // prettier-ignore
+    inputTitle.value = inputAuthor.value = inputPages.value = inputRating.value = "";
+    inputRead.checked = false;
     modalBook.classList.add("hidden");
     overlay.classList.add("hidden");
   }
@@ -84,17 +94,22 @@ class App {
     const rating = +inputRating.value;
     const isRead = inputRead.value;
     const desc = [title, author, pages, rating, isRead];
-    const book = new Book(...desc);
     // Validate input fields
     if (desc.some((ipt) => !ipt))
       return alert("Some fields are left empty. Please fill them in");
-    // Render book
+    const book = new Book(...desc);
+    this.#books.push(book);
     this._renderBook(book);
-    // prettier-ignore
-    inputTitle.value = inputAuthor.value = inputPages.value = inputRating.value = "";
-    inputRead.checked = false;
-    modalBook.classList.add("hidden");
-    overlay.classList.add("hidden");
+    this._hideBookForm();
+    this._setLocalStorage();
+  }
+
+  _removeBook(e) {
+    const card = e.target.closest(".cards__item");
+    const idx = +card.dataset.index;
+    if (idx > -1) this.#books.splice(idx, 1);
+    cards.removeChild(card);
+    this._setLocalStorage();
   }
 
   _renderBook(book) {
@@ -124,11 +139,7 @@ class App {
     const btnRemove = document.createElement("button");
     btnRemove.classList.add("cards__btn", "cards__btn--remove");
     btnRemove.innerHTML = "Remove";
-    btnRemove.addEventListener("click", function () {
-      const idx = div.dataset.index;
-      book.books.pop(idx);
-      cards.removeChild(div);
-    });
+    btnRemove.addEventListener("click", this._removeBook.bind(this));
     const btnStatus = document.createElement("button");
     btnStatus.classList.add("cards__btn", "cards__btn--status");
     btnStatus.innerHTML = "Read";
@@ -158,6 +169,7 @@ class App {
   }
 
   _hideNoteForm() {
+    inputNote.value = "";
     modalNote.classList.add("hidden");
     overlay.classList.add("hidden");
   }
@@ -171,18 +183,30 @@ class App {
 
   _newNote(e) {
     e.preventDefault();
-    const note = inputNote.value ? inputNote.value : "";
+    const note = inputNote.value;
+    if (!note) return;
     this._renderNote(note);
-    inputNote.value = "";
-    modalNote.classList.add("hidden");
-    overlay.classList.add("hidden");
+    this._hideNoteForm();
   }
 
-  _renderNote() {
+  _renderNote(txt) {
+    const notesList = document.querySelector(".notes__list");
     const li = document.createElement("li");
     li.classList.add("notes__list__item");
     li.textContent = txt;
     notesList.appendChild(li);
+  }
+
+  _setLocalStorage() {
+    localStorage.setItem("books", JSON.stringify(this.#books));
+  }
+
+  _getLocalStorage() {
+    const data = JSON.parse(localStorage.getItem("books"));
+    if (!data) return;
+    const restoredData = data.map((item) => Object.assign(new Book(), item));
+    this.#books = restoredData;
+    this.#books.forEach((book) => this._renderBook(book));
   }
 }
 
