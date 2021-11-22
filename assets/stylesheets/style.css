@@ -69,9 +69,7 @@ iframe {
 /* General Elements */
 
 /* Buttons */
-.btn--new {
-  display: block;
-  margin: 10px auto;
+.btn {
   font-family: inherit;
   cursor: pointer;
 }
@@ -243,6 +241,24 @@ iframe {
 
 /*
  * 
+ * Selection Library
+ *
+ *
+ */
+
+.selection--library {
+  display: flex;
+  justify-content: center;
+  width: 30%;
+  margin: 0 auto;
+}
+.selection__btn {
+  width: 30%;
+  margin: 5px;
+}
+
+/*
+ * 
  * Notes
  *
  *
@@ -281,6 +297,10 @@ iframe {
   overflow-wrap: break-word;
   background-color: white;
   border-radius: 3px;
+}
+.btn--new-note {
+  display: block;
+  margin: 10px auto;
 }
 
 /*

@@ -25,11 +25,14 @@
     <main class="main">
       <h1 class="main__header">Library</h1>
       <div class="cards"></div>
-      <button class="btn--new btn--new-book">New Book</button>
+      <div class="selection selection--library">
+        <button class="btn btn--new-book selection__btn">New Book</button>
+        <button class="btn btn--save-books selection__btn">Save Library</button>
+      </div>
       <div class="notes hidden">
         <h2 class="notes__header">Notes</h2>
         <ul class="notes__list"></ul>
-        <button class="btn--new btn--new-note">Add Note</button>
+        <button class="btn btn--new-note">Add Note</button>
         <div class="modal modal--note hidden">
           <button class="btn--close btn--close-note">&times;</button>
           <h2 class="modal__header">Create a Note</h2>
@@ -38,6 +41,7 @@
               class="form__input form__input--note"
               type="text"
               max="128"
+              autofocus
             ></textarea>
             <button
               class="form__btn form__btn--submit form__btn--submit-note"
