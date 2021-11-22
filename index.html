@@ -39,7 +39,10 @@
               type="text"
               max="128"
             ></textarea>
-            <button class="form__btn form__btn--submit form__btn--submit-note">
+            <button
+              class="form__btn form__btn--submit form__btn--submit-note"
+              type="submit"
+            >
               Create!
             </button>
           </form>
@@ -52,11 +55,24 @@
       <h2 class="modal__header">Fill in the Details of the Book</h2>
       <form class="modal__form modal__form--book">
         <label class="form__label">Name of Book</label>
-        <input class="form__input form__input--title" type="text" max="64" />
+        <input
+          class="form__input form__input--title"
+          type="text"
+          maxlength="64"
+        />
         <label class="form__label">Name of Author</label>
-        <input class="form__input form__input--author" type="text" max="32" />
+        <input
+          class="form__input form__input--author"
+          type="text"
+          maxlength="32"
+        />
         <label class="form__label">Num. of Pages</label>
-        <input class="form__input form__input--pages" type="number" min="1" />
+        <input
+          class="form__input form__input--pages"
+          type="number"
+          min="1"
+          max="9999"
+        />
         <label class="form__label">Rating</label>
         <input
           class="form__input form__input--rating"
@@ -64,7 +80,12 @@
           min="1"
           max="5"
         />
-        <button class="form__btn form__btn--submit form__btn--submit-book">
+        <label class="form__label">Read</label>
+        <input class="form__input form__input--read" type="checkbox" />
+        <button
+          class="form__btn form__btn--submit form__btn--submit-book"
+          type="submit"
+        >
           Create!
         </button>
       </form>
