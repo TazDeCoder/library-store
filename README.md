@@ -13,12 +13,14 @@ Build Your Own Personal Library Today!
 - Modern GUI
 - Simple Design
 - Book Rating Meter
-- **NEW:** Notes Section
+- Notes Section
+- **NEW:** Save Library (local)
 
 **TASK-LIST:**
 
-- [x] Notes Section
-- [ ] Save Library (Local)
+- [x] Save Library (local)
+
+**_None at the moment, but feel free to suggest any :)_**
 
 ## Installation
 
