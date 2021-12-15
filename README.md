@@ -6,7 +6,7 @@
 
 ## Description
 
-Build Your Own Personal Library Today!
+Build Your Own Personal Library Collection!
 
 **Features:**
 
@@ -14,11 +14,9 @@ Build Your Own Personal Library Today!
 - Simple Design
 - Book Rating Meter
 - Notes Section
-- **NEW:** Save Library (local)
+- Save Library (local)
 
 **TASK-LIST:**
-
-- [x] Save Library (local)
 
 **_None at the moment, but feel free to suggest any :)_**
 
