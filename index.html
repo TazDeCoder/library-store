@@ -22,42 +22,48 @@
     <title>Library</title>
   </head>
   <body>
+    <!-- Library -->
     <main class="main">
-      <h1 class="main__header">Library</h1>
-      <div class="cards"></div>
-      <div class="selection selection--library">
-        <button class="btn btn--new-book selection__btn">New Book</button>
-        <button class="btn btn--save-books selection__btn">Save Library</button>
-      </div>
-      <div class="notes hidden">
-        <h2 class="notes__header">Notes</h2>
-        <ul class="notes__list"></ul>
-        <button class="btn btn--new-note">Add Note</button>
-        <div class="modal modal--note hidden">
-          <button class="btn--close btn--close-note">&times;</button>
-          <h2 class="modal__header">Create a Note</h2>
-          <form class="modal__form modal__form--note">
-            <textarea
-              class="form__input form__input--note"
-              type="text"
-              max="128"
-              autofocus
-            ></textarea>
-            <button
-              class="form__btn form__btn--submit form__btn--submit-note"
-              type="submit"
-            >
-              Create!
-            </button>
-          </form>
-        </div>
-        <div class="overlay hidden"></div>
+      <div class="main__content content">
+        <h1 class="content__label content__label--title">Library</h1>
+        <div
+          class="content__container content__container--hero container"
+        ></div>
+        <nav class="content__nav content__nav--options nav">
+          <button class="nav__btn nav__btn--new btn">New Book</button>
+          <button class="nav__btn nav__btn--save btn">Save Library</button>
+        </nav>
       </div>
     </main>
+    <!-- Notes sidebar -->
+    <div class="sidebar sidebar--aside hidden">
+      <h1 class="sidebar__label sidebar__label--title">Notes</h1>
+      <ul class="sidebar__list list"></ul>
+      <button class="sidebar__btn sidebar__btn--new btn">Add Note</button>
+    </div>
+    <!-- Note form -->
+    <div class="modal modal--note hidden">
+      <button class="modal__btn modal__btn--close btn">&times;</button>
+      <h1 class="modal__label modal__label--title">Create a Note</h1>
+      <form class="modal__form modal__form--note form">
+        <textarea
+          class="form__input form__input--note"
+          type="text"
+          max="128"
+          autofocus
+        ></textarea>
+        <button class="form__btn form__btn--submit btn" type="submit">
+          Create!
+        </button>
+      </form>
+    </div>
+    <!-- Book form -->
     <div class="modal modal--book hidden">
-      <button class="btn--close btn--close-book">&times;</button>
-      <h2 class="modal__header">Fill in the Details of the Book</h2>
-      <form class="modal__form modal__form--book">
+      <button class="modal__btn modal__btn--close btn">&times;</button>
+      <h2 class="modal__label modal__label--title">
+        Fill in the Details of the Book
+      </h2>
+      <form class="modal__form modal__form--book form">
         <label class="form__label">Name of Book</label>
         <input
           class="form__input form__input--title"
@@ -86,10 +92,7 @@
         />
         <label class="form__label">Read</label>
         <input class="form__input form__input--read" type="checkbox" />
-        <button
-          class="form__btn form__btn--submit form__btn--submit-book"
-          type="submit"
-        >
+        <button class="form__btn form__btn--submit" type="submit">
           Create!
         </button>
       </form>
