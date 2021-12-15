@@ -4,27 +4,35 @@
 ////// Selecting HTML Elements
 ///////////////////////////////////////////////
 
+// Parents
+// --- GENERAL ---
+const containerLibrary = document.querySelector(".content__container--hero");
+const sidebarNotes = document.querySelector(".sidebar--aside");
+const sidebarList = document.querySelector(".sidebar__list");
+const overlay = document.querySelector(".overlay");
+// --- MODALS ---
+const modalNote = document.querySelector(".modal--note");
+const modalBook = document.querySelector(".modal--book");
+// --- FORMS ---
+const formBook = document.querySelector(".modal__form--book");
+const formNote = document.querySelector(".modal__form--note");
 // Inputs
+// --- LIBRARY ---
 const inputTitle = document.querySelector(".form__input--title");
 const inputAuthor = document.querySelector(".form__input--author");
 const inputPages = document.querySelector(".form__input--pages");
 const inputRating = document.querySelector(".form__input--rating");
 const inputRead = document.querySelector(".form__input--read");
+// --- NOTES ---
 const inputNote = document.querySelector(".form__input--note");
 // Buttons
-const btnNewNote = document.querySelector(".btn--new-note");
-const btnCloseNote = document.querySelector(".btn--close-note");
-const btnNewBook = document.querySelector(".btn--new-book");
-const btnCloseBook = document.querySelector(".btn--close-book");
-const btnSaveBooks = document.querySelector(".btn--save-books");
-// Parents
-const cards = document.querySelector(".cards");
-const modalBook = document.querySelector(".modal--book");
-const formBook = document.querySelector(".modal__form--book");
-const notes = document.querySelector(".notes");
-const modalNote = document.querySelector(".modal--note");
-const formNote = document.querySelector(".modal__form--note");
-const overlay = document.querySelector(".overlay");
+// --- GENERAL ---
+const btnNewBook = document.querySelector(".nav__btn--new");
+const btnSaveBooks = document.querySelector(".nav__btn--save");
+const btnNewNote = document.querySelector(".sidebar__btn--new");
+// --- MODALS ---
+const btnCloseNote = modalNote.querySelector(".modal__btn--close");
+const btnCloseBook = modalBook.querySelector(".modal__btn--close");
 
 ////////////////////////////////////////////////
 ////// Book Constructor
@@ -50,15 +58,20 @@ class Book {
 
 class App {
   #books = [];
-  template = new Book("The Maze Runner", "James Dashner", 375, 4, true);
+  #template = new Book("The Maze Runner", "James Dashner", 375, 4, true);
 
   constructor() {
+    // Loading app...
     this._getLocalStorage();
     if (!this.#books.length) {
-      this.#books.push(this.template);
-      this._renderBook(this.template);
+      this.#books.push(this.#template);
+      this._renderBook(this.#template);
     }
-    // Add event listeners
+    // Add event handlers
+    containerLibrary.addEventListener(
+      "click",
+      this._handleLibraryEvents.bind(this)
+    );
     btnSaveBooks.addEventListener("click", this._storeBooks.bind(this));
     btnNewBook.addEventListener("click", this._showBookForm);
     btnCloseBook.addEventListener("click", this._hideBookForm);
@@ -66,6 +79,17 @@ class App {
     btnNewNote.addEventListener("click", this._showNoteForm);
     btnCloseNote.addEventListener("click", this._hideNoteForm);
     formNote.addEventListener("submit", this._newNote.bind(this));
+  }
+
+  _handleLibraryEvents(e) {
+    const clicked = e.target;
+    if (!clicked) return;
+    if (clicked.classList.contains("item__btn--remove"))
+      return this._removeBook.call(this, clicked);
+    if (clicked.classList.contains("item__btn--status"))
+      return clicked.classList.toggle("item__btn--status-active");
+    if (clicked.closest(".item").classList.contains("item"))
+      return sidebarNotes.classList.toggle("hidden");
   }
 
   _storeBooks() {
@@ -104,63 +128,30 @@ class App {
     this._setLocalStorage();
   }
 
-  _removeBook(e) {
-    const card = e.target.closest(".cards__item");
+  _removeBook(clicked) {
+    const card = clicked.closest(".item");
     const idx = +card.dataset.index;
     if (idx > -1) this.#books.splice(idx, 1);
-    cards.removeChild(card);
+    containerLibrary.removeChild(card);
     this._setLocalStorage();
   }
 
   _renderBook(book) {
-    // Helper functions
-    const appendChildren = (parent, ...childs) =>
-      childs.forEach((node) => {
-        parent.appendChild(node);
-      });
-    // Creating parent element
-    const div = document.createElement("div");
-    div.classList.add("cards__item");
-    div.setAttribute("data-index", cards.childNodes.length);
-    div.addEventListener("click", this._showNotes);
-    // Creating child elements
-    const labelAuthor = document.createElement("p");
-    labelAuthor.classList.add("cards__label", "cards__label--author");
-    labelAuthor.innerHTML = book.author;
-    const labelTitle = document.createElement("p");
-    labelTitle.classList.add("cards__label", "cards__label--title");
-    labelTitle.innerHTML = book.title;
-    const labelPages = document.createElement("p");
-    labelPages.classList.add("cards__label", "cards__label--pages");
-    labelPages.innerHTML = book.pages;
-    const labelRating = document.createElement("p");
-    labelRating.classList.add("cards__label", "cards__label--rating");
-    labelRating.innerHTML = "⭐".repeat(book.rating);
-    const btnRemove = document.createElement("button");
-    btnRemove.classList.add("cards__btn", "cards__btn--remove");
-    btnRemove.innerHTML = "Remove";
-    btnRemove.addEventListener("click", this._removeBook.bind(this));
-    const btnStatus = document.createElement("button");
-    btnStatus.classList.add("cards__btn", "cards__btn--status");
-    btnStatus.innerHTML = "Read";
-    if (book.isRead) btnStatus.classList.add("cards__btn--status-active");
-    btnStatus.addEventListener("click", function () {
-      book.toggleRead();
-      btnStatus.classList.toggle("cards__btn--status-active");
-    });
-    // Adding child elements to parent element
-    appendChildren(
-      div,
-      ...[
-        labelAuthor,
-        labelTitle,
-        labelPages,
-        labelRating,
-        btnRemove,
-        btnStatus,
-      ]
-    );
-    cards.appendChild(div);
+    const html = `
+    <div class="container__item item" data-index="${
+      containerLibrary.childNodes.length
+    }">
+      <p class="item__label item__label--author">${book.author}</p>
+      <p class="item__label item__label--title">${book.title}</p>
+      <p class="item__label item__label--pages">${book.pages}</p>
+      <p class="item__label item__label--rating">${"⭐".repeat(book.rating)}</p>
+      <button class="item__btn item__btn--remove btn">Remove</button>
+      <button class="item__btn item__btn--status ${
+        book.isRead ? "item__btn--status-active" : ""
+      } btn">Read</button>
+    </div>
+    `;
+    containerLibrary.insertAdjacentHTML("beforeend", html);
   }
 
   _showNoteForm() {
@@ -174,13 +165,6 @@ class App {
     overlay.classList.add("hidden");
   }
 
-  _showNotes(e) {
-    const clicked = e.target;
-    if (!clicked) return;
-    if (!clicked.classList.contains("cards__btn"))
-      notes.classList.toggle("hidden");
-  }
-
   _newNote(e) {
     e.preventDefault();
     const note = inputNote.value;
@@ -190,11 +174,10 @@ class App {
   }
 
   _renderNote(txt) {
-    const notesList = document.querySelector(".notes__list");
     const li = document.createElement("li");
-    li.classList.add("notes__list__item");
+    li.classList.add("list__item", "item");
     li.textContent = txt;
-    notesList.appendChild(li);
+    sidebarList.appendChild(li);
   }
 
   _setLocalStorage() {
