@@ -1,5 +1,7 @@
 "use strict";
 
+import "core-js/stable";
+
 ////////////////////////////////////////////////
 ////// Selecting HTML Elements
 ///////////////////////////////////////////////
@@ -122,7 +124,6 @@ class App {
     // Find id of book in books array + remove it
     const idx = this.#books.findIndex((book) => book.id === id);
     if (idx > -1) this.#books.splice(idx, 1);
-    console.log(this.#books);
     // Remove card from library
     containerLibrary.removeChild(card);
     // Update library

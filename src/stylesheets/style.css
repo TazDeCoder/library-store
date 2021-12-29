@@ -14,7 +14,7 @@ html {
   font-size: 16px;
 }
 body {
-  font-family: "Mochiy Pop P One", sans-serif;
+  font-family: "Poppins", sans-serif;
   background-color: #2d3436;
 }
 nav,
@@ -60,7 +60,6 @@ iframe {
 
 /* Buttons */
 .btn {
-  font-family: inherit;
   background-color: var(--color-primary-light);
   border: 2px solid var(--color-primary-dark);
 }
@@ -119,6 +118,12 @@ iframe {
   padding: 1rem;
   margin: 0 auto;
 }
+/* Head Label */
+.main .head__label--title {
+  font-size: 3rem;
+  font-weight: 300;
+  color: white;
+}
 .main .content__container--hero {
   display: flex;
   flex-wrap: wrap;
@@ -134,26 +139,10 @@ iframe {
   padding: 1rem;
   margin: 0 auto;
 }
-
-/* 
- *
- * Main
- *
- * * * Content
- *
- * * * * * Head
- *
- *
- */
-
-.main .head__label--title {
-  font-size: 3rem;
-  font-weight: 300;
-  color: white;
-}
-.main .head__btn--show-notes {
-  padding: 0.5rem;
-  font-size: 600;
+/* Nav btn */
+.main .nav__btn--new {
+  padding: 1rem;
+  font-weight: 600;
 }
 
 /* 
@@ -199,24 +188,24 @@ iframe {
 
 .main__content .container .item__label {
   overflow: hidden;
-  font-weight: 600;
   text-overflow: ellipsis;
 }
 .main__content .container .item__label--author {
   height: 2rem;
   font-size: 1rem;
+  font-weight: 600;
   font-style: italic;
   color: var(--color-secondary-dark);
   text-align: right;
 }
 .main__content .container .item__label--title {
   height: 5rem;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
 }
 .main__content .container .item__label--pages {
   height: 2rem;
   padding: 3px;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-weight: 700;
   border: 2px solid var(--color-secondary-dark);
   border-radius: 5px;
@@ -230,6 +219,7 @@ iframe {
 .main__content .container .item__btn {
   margin: 0 3px;
   font-size: 1rem;
+  font-weight: 600;
   text-transform: uppercase;
   border: 2px solid var(--color-secondary-dark);
 }
@@ -297,7 +287,6 @@ iframe {
   gap: 12px;
   align-items: center;
   margin: 0 12px;
-  font-size: 1rem;
 }
 
 /* 
@@ -310,12 +299,12 @@ iframe {
  */
 
 .modal .form__label {
-  font-size: 1.2em;
+  font-size: 1.2rem;
   font-weight: 500;
 }
 .modal .form__input {
   padding: 0.5rem 1.5rem;
-  font-size: 1.2em;
+  font-size: 1.2rem;
   border: 1px solid var(--color-tertiary-lightgrey);
   border-radius: 0.5rem;
 }
