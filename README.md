@@ -1,4 +1,4 @@
-# Library
+# LibraryStore
 
 ## Screenshots
 
@@ -8,18 +8,19 @@
 
 ## Description
 
-Build Your Own Personal Library Collection Today!
+A JavaScript app based on the Odin Project exercise - **'Library'**
 
 **Features:**
 
-- Modern GUI
+- Modern User Interface
 - Simple Design
 - Book Rating Meter
 - Local Saves
 
-**TASK-LIST:**
+## What I've Learnt
 
-**_None at the moment, but feel free to suggest any :)_**
++ Using the built-in localstorage API
++ Building reusable object contructors using factory functions 
 
 ## Installation
 
@@ -27,7 +28,7 @@ To use this project, first clone the repo on your device using the command below
 
 `git init`
 
-`https://github.com/tarwat-uddin/library-js.git`
+`https://github.com/tarwat-uddin/librarystore.git`
 
 ## License
 
