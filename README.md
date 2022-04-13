@@ -8,7 +8,7 @@
 
 ## Description
 
-A JavaScript app based on the Odin Project exercise - **'Library'**
+A JavaScript application based on the Odin Project exercise - **'Library'**
 
 **Features:**
 
