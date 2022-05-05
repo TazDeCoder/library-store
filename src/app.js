@@ -117,7 +117,7 @@ class App {
   }
 
   _removeBook(clicked) {
-    const card = clicked.closest(".item");
+    const card = clicked.closest(".container__item--card");
     if (!card) return;
     // Get card id
     const id = card.dataset.id;
@@ -131,7 +131,7 @@ class App {
   }
 
   _updateBook(clicked) {
-    const card = clicked.closest(".item");
+    const card = clicked.closest(".container__item--card");
     if (!card) return;
     // Get card id
     const id = card.dataset.id;
@@ -149,7 +149,7 @@ class App {
 
   _renderBook(book) {
     const html = `
-      <div class="container__item item" data-id="${book.id}">
+      <div class="container__item container__item--card" data-id="${book.id}">
         <p class="item__label item__label--author">${book.author}</p>
         <p class="item__label item__label--title">${book.title}</p>
         <p class="item__label item__label--pages">${book.pages}</p>

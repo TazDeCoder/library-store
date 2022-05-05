@@ -5,16 +5,12 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-html,
-body {
-  width: 100%;
-  height: 100%;
-}
 html {
+  font-family: "Poppins", sans-serif;
   font-size: 16px;
 }
 body {
-  font-family: "Poppins", sans-serif;
+  min-height: 100vh;
   background-color: #2d3436;
 }
 nav,
@@ -58,7 +54,7 @@ iframe {
 
 /* General Elements */
 
-/* Buttons */
+/* Button */
 .btn {
   background-color: var(--color-primary-light);
   border: 2px solid var(--color-primary-dark);
@@ -66,6 +62,11 @@ iframe {
 .btn:hover {
   cursor: pointer;
   background-color: var(--color-primary-light-hover);
+}
+/* Navbar */
+.nav {
+  display: flex;
+  justify-content: center;
 }
 
 /* Class Modifiers */
@@ -87,42 +88,47 @@ iframe {
 
 /* 
  *
- * Main
+ * Head
  *
  *
  */
 
-.main {
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
   width: 100%;
-  height: 100%;
-}
-.main__content {
-  height: 100%;
   padding: 1rem;
+  margin: 0 auto;
+}
+.head__label--title {
+  font-size: 3rem;
+  font-weight: 300;
+  color: white;
+}
+.head .head__content--socials {
+  margin: 1rem 0.5rem;
+}
+.head .head__content--socials__item {
+  display: inline-block;
+  margin: 0 0.5rem;
+  padding: 10px 0;
+}
+.head .head__content--socials__item a {
+  text-decoration: none;
+  color: white;
+  font-size: 3rem;
 }
 
 /* 
  *
  * Main
  *
- * * * Content
- *
  *
  */
 
-.main .content__head {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  width: 70%;
+.main {
   padding: 1rem;
-  margin: 0 auto;
-}
-/* Head Label */
-.main .head__label--title {
-  font-size: 3rem;
-  font-weight: 300;
-  color: white;
 }
 .main .content__container--hero {
   display: flex;
@@ -133,16 +139,9 @@ iframe {
   margin: 2rem 0;
 }
 .main .content__nav--options {
-  display: flex;
-  justify-content: center;
   width: 60%;
   padding: 1rem;
   margin: 0 auto;
-}
-/* Nav btn */
-.main .nav__btn--new {
-  padding: 1rem;
-  font-weight: 600;
 }
 
 /* 
@@ -156,7 +155,7 @@ iframe {
  *
  */
 
-.main__content .container__item {
+.main .content__container .container__item {
   width: 14rem;
   height: 18rem;
   padding: 12px;
@@ -169,7 +168,7 @@ iframe {
   border-radius: 5px;
   transition: all 700ms;
 }
-.main__content .container__item:hover {
+.main .content__container .container__item:hover {
   transform: scale(110%);
 }
 
@@ -186,11 +185,11 @@ iframe {
  *
  */
 
-.main__content .container .item__label {
+.main .content__container .container__item .item__label {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.main__content .container .item__label--author {
+.main .content__container .container__item .item__label--author {
   height: 2rem;
   font-size: 1rem;
   font-weight: 600;
@@ -198,11 +197,11 @@ iframe {
   color: var(--color-secondary-dark);
   text-align: right;
 }
-.main__content .container .item__label--title {
+.main .content__container .container__item .item__label--title {
   height: 5rem;
   font-size: 1.3rem;
 }
-.main__content .container .item__label--pages {
+.main .content__container .container__item .item__label--pages {
   height: 2rem;
   padding: 3px;
   font-size: 1.5rem;
@@ -210,39 +209,39 @@ iframe {
   border: 2px solid var(--color-secondary-dark);
   border-radius: 5px;
 }
-.main__content .container .item__label--rating {
+.main .content__container .container__item .item__label--rating {
   height: 2rem;
   margin: 1rem 0;
   font-size: 1.5rem;
   font-weight: 300;
 }
-.main__content .container .item__btn {
+.main .content__container .container__item .item__btn {
   margin: 0 3px;
   font-size: 1rem;
   font-weight: 600;
   text-transform: uppercase;
   border: 2px solid var(--color-secondary-dark);
 }
-.main__content .container .item__btn--remove {
+.main .content__container .container__item .item__btn--remove {
   display: inline-block;
   background-color: var(--color-tertiary-orange);
   border-radius: 12px;
 }
-.main__content .container .item__btn--remove:hover {
+.main .content__container .container__item .item__btn--remove:hover {
   background-color: var(--color-tertiary-orange-hover);
 }
-.main__content .container .item__btn--status {
+.main .content__container .container__item .item__btn--status {
   background-color: var(--color-tertiary-grey);
   border-radius: 25%;
   transition: background-color 400ms;
 }
-.main__content .container .item__btn--status:hover {
+.main .content__container .container__item .item__btn--status:hover {
   background-color: var(--color-tertiary-grey-hover);
 }
-.main__content .container .item__btn--status-active {
+.main .content__container .container__item .item__btn--status-active {
   background-color: var(--color-tertiary-green);
 }
-.main__content .container .item__btn--status-active:hover {
+.main .content__container .container__item .item__btn--status-active:hover {
   background-color: var(--color-tertiary-green-hover);
 }
 

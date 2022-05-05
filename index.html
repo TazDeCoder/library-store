@@ -4,40 +4,60 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="./src/stylesheets/reset.css" />
-    <link rel="stylesheet" type="text/css" href="./src/stylesheets/style.css" />
+    <link rel="stylesheet" type="text/css" href="./public/stylesheets/reset.css" />
+    <link rel="stylesheet" type="text/css" href="./public/stylesheets/style.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,500;0,600;0,700;1,600&display=swap"
       rel="stylesheet"
     />
+    <link
+      href="./node_modules/@fortawesome/fontawesome-free/css/brands.css"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/x-icon" href="./public/images/favicon.ico" />
     <script defer type="module" src="./src/app.js"></script>
-    <title>Library</title>
+    <title>LibraryStore</title>
   </head>
   <body>
-    <!-- Library -->
+    <header class="head">
+      <h1 class="head__label head__label--title">LibraryStore</h1>
+      <!-- SOCIAL LINKS -->
+      <nav class="head__content--socials nav">
+        <div class="head__content--socials__item">
+          <a
+            href="https://github.com/tarwat-uddin/librarystore"
+            target="_blank"
+            rel="noopener"
+          >
+            <i class="fa-brands fa-github" />
+          </a>
+        </div>
+        <div class="head__content--socials__item">
+          <a href="https://dev.to/tarwatuddin" target="_blank" rel="noopener">
+            <i class="fa-brands fa-dev" />
+          </a>
+        </div>
+      </nav>
+    </header>
+    <!-- LIBRARY DISPLAY -->
     <main class="main">
-      <div class="main__content content">
-        <header class="content__head head">
-          <h1 class="head__label head__label--title">Library</h1>
-        </header>
-
         <div
-          class="content__container content__container--hero container"
+          class="content__container content__container--hero"
         ></div>
-
+        <!-- LIBRARY OPTIONS -->
         <nav class="content__nav content__nav--options nav">
           <button class="nav__btn nav__btn--new btn">New Book</button>
         </nav>
       </div>
     </main>
-    <!-- Book form -->
+
     <div class="modal modal--book hidden">
       <button class="modal__btn modal__btn--close">&times;</button>
       <h2 class="modal__label modal__label--title">
         Fill in the Details of the Book
       </h2>
-
-      <form class="modal__form modal__form--book form">
+      <!-- BOOK FORM -->
+      <form class="modal__form modal__form--book">
         <label class="form__label">Name of Book</label>
         <input
           class="form__input form__input--title"
@@ -75,7 +95,7 @@
         </button>
       </form>
     </div>
-
-    <div class="overlay hidden"></div>
+    <!-- PAGE OVERLAY -->
+    <div class="overlay hidden" />
   </body>
 </html>
