@@ -1,10 +1,9 @@
-# LibraryStore
+# Library Store
 
 ## Screenshots
 
-![screenshots-0](/screenshots/screenshots-0.png)
-![screenshots-1](/screenshots/screenshots-1.png)
-![screenshots-2](/screenshots/screenshots-2.png)
+<img src="./public/images/screenshots/screenshots-1.png" alt="desktop-screenshot" width="65%"></img>
+<img src="./public/images/screenshots/screenshots-2.png" alt="mobile-screenshot" width="30%"></img>
 
 ## Description
 
@@ -19,8 +18,8 @@ A JavaScript application based on the Odin Project exercise - **'Library'**
 
 ## What I've Learnt
 
-+ Using the built-in localstorage API
-+ Building reusable object contructors using factory functions 
+- Using the built-in localstorage API
+- Building reusable object contructors using factory functions
 
 ## Installation
 
@@ -28,7 +27,7 @@ To use this project, first clone the repo on your device using the command below
 
 `git init`
 
-`https://github.com/tarwat-uddin/librarystore.git`
+`https://github.com/tarwat-uddin/library-store.git`
 
 ## License
 

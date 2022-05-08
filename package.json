@@ -1,7 +1,8 @@
 {
-  "name": "librarystore",
+  "name": "library-store",
   "version": "1.0.0",
-  "description": "keep a track of your books",
+  "private": true,
+  "description": "keep track of your books",
   "default": "index.html",
   "scripts": {
     "start": "parcel index.html",
@@ -9,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tarwat-uddin/librarystore.git"
+    "url": "git+https://github.com/tarwat-uddin/library-store.git"
   },
   "author": "Tarwat Uddin",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/tarwat-uddin/librarystore/issues"
+    "url": "https://github.com/tarwat-uddin/library-store/issues"
   },
-  "homepage": "https://github.com/tarwat-uddin/librarystore#readme",
+  "homepage": "https://github.com/tarwat-uddin/library-store#readme",
   "devDependencies": {
     "parcel": "^2.0.1"
   },
