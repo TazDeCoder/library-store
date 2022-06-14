@@ -1,36 +1,61 @@
 "use strict";
 
-import "core-js/stable";
-
 ////////////////////////////////////////////////
 ////// Selecting HTML Elements
 ///////////////////////////////////////////////
 
 // Parents
-const containerLibrary = document.querySelector(".content__container--hero");
-const modalBook = document.querySelector(".modal--book");
-const formBook = document.querySelector(".modal__form--book");
-const overlay = document.querySelector(".overlay");
+const containerLibrary: HTMLElement = document.querySelector(
+  ".content__container--hero"
+);
+const modalBook: HTMLElement = document.querySelector(".modal--book");
+const formBook: HTMLElement = document.querySelector(".modal__form--book");
+const overlay: HTMLElement = document.querySelector(".overlay");
 // Inputs
-const inputTitle = document.querySelector(".form__input--title");
-const inputAuthor = document.querySelector(".form__input--author");
-const inputPage = document.querySelector(".form__input--pages");
-const inputRating = document.querySelector(".form__input--ratings");
-const inputRead = document.querySelector(".form__input--read");
+const inputTitle: HTMLInputElement = document.querySelector(
+  ".form__input--title"
+);
+const inputAuthor: HTMLInputElement = document.querySelector(
+  ".form__input--author"
+);
+const inputPage: HTMLInputElement = document.querySelector(
+  ".form__input--pages"
+);
+const inputRating: HTMLInputElement = document.querySelector(
+  ".form__input--ratings"
+);
+const inputRead: HTMLInputElement =
+  document.querySelector(".form__input--read");
 // Buttons
-const btnNewBook = document.querySelector(".nav__btn--new");
-const btnCloseModalBook = modalBook.querySelector(".modal__btn--close");
+const btnNewBook: HTMLButtonElement = document.querySelector(".nav__btn--new");
+const btnCloseModalBook: HTMLButtonElement =
+  modalBook.querySelector(".modal__btn--close");
 
 ////////////////////////////////////////////////
 ////// Book Factory Function
 ///////////////////////////////////////////////
 
-const Book = function (title, author, pages, ratings, read) {
-  const id = String(Date.now()).slice(-4);
-  // Methods
-  function toggleRead() {
+interface BookSchema {
+  id?: string;
+  title: string;
+  author: string;
+  pages: number;
+  ratings: number;
+  read: boolean;
+  toggleRead?: () => void;
+}
+
+const Book = function ({
+  id = String(Date.now()).slice(-4),
+  title,
+  author,
+  pages,
+  ratings,
+  read,
+}: BookSchema): BookSchema {
+  const toggleRead = function () {
     this.read = !this.read;
-  }
+  };
 
   return {
     id,
@@ -48,15 +73,21 @@ const Book = function (title, author, pages, ratings, read) {
 ///////////////////////////////////////////////
 
 class App {
-  #books = [];
-  #template = Book("The Maze Runner", "James Dashner", 375, 4, true);
+  books: BookSchema[] = [];
+  template = Book({
+    title: "The Maze Runner",
+    author: "James Dashner",
+    pages: 375,
+    ratings: 4,
+    read: true,
+  });
 
   constructor() {
     // Load app
     this._getLocalStorage();
-    if (!this.#books.length) {
-      this.#books.push(this.#template);
-      this._renderBook(this.#template);
+    if (this.books.length === 0) {
+      this.books.push(this.template);
+      this._renderBook(this.template);
     }
     // Add event handlers
     containerLibrary.addEventListener(
@@ -71,8 +102,8 @@ class App {
   /////////////////////////////////////
   //////////// Handler functions
 
-  _handleCardEvents(e) {
-    const clicked = e.target;
+  _handleCardEvents(e: Event) {
+    const clicked = e.target as HTMLElement;
     if (!clicked) return;
     // Remove button triggered
     if (clicked.classList.contains("item__btn--remove"))
@@ -98,56 +129,59 @@ class App {
   /////////////////////////////////////
   //////////// App logic
 
-  _newBook(e) {
+  _newBook(e: Event) {
     e.preventDefault();
+    // Gathering inputs from fields
     const title = inputTitle.value;
     const author = inputAuthor.value;
     const pages = +inputPage.value;
     const ratings = +inputRating.value;
-    const read = inputRead.value;
-    const book = Book(title, author, pages, ratings, read);
-    // Add book to books array
-    this.#books.push(book);
-    // Render book onto library
+    const read = inputRead.checked;
+    // Create book object
+    const book = Book({ title, author, pages, ratings, read });
+    // Add book object to books array
+    this.books.push(book);
+    // Render book to library
     this._renderBook(book);
-    // Hide form
+    // Hide book form
     this._hideBookForm();
-    // Update library
+    // Update library storage
     this._setLocalStorage();
   }
 
-  _removeBook(clicked) {
-    const card = clicked.closest(".container__item--card");
-    if (!card) return;
+  _removeBook(clicked: HTMLInputElement) {
+    const cardEl = clicked.closest(".container__item--card") as HTMLElement;
+    if (!cardEl) return;
     // Get card id
-    const id = card.dataset.id;
-    // Find id of book in books array + remove it
-    const idx = this.#books.findIndex((book) => book.id === id);
-    if (idx > -1) this.#books.splice(idx, 1);
+    const id = cardEl.dataset.id;
+    // Find id of book from books array
+    const idx = this.books.findIndex((book) => book.id === id);
+    // Remove book if exists
+    if (idx !== -1) this.books.splice(idx, 1);
     // Remove card from library
-    containerLibrary.removeChild(card);
-    // Update library
+    containerLibrary.removeChild(cardEl);
+    // Update library storage
     this._setLocalStorage();
   }
 
-  _updateBook(clicked) {
-    const card = clicked.closest(".container__item--card");
-    if (!card) return;
+  _updateBook(clicked: HTMLInputElement) {
+    const cardEl = clicked.closest(".container__item--card") as HTMLElement;
+    if (!cardEl) return;
     // Get card id
-    const id = card.dataset.id;
+    const id = cardEl.dataset.id;
     // Find book in books array and update read status
-    const book = this.#books.find((book) => book.id === id);
+    const book = this.books.find((book) => book.id === id);
     book.toggleRead();
     // Toggle read status
     clicked.classList.toggle("item__btn--status-active");
-    // Update library
+    // Update library storage
     this._setLocalStorage();
   }
 
   /////////////////////////////////////
   //////////// DOM manipulation
 
-  _renderBook(book) {
+  _renderBook(book: BookSchema) {
     const html = `
       <div class="container__item container__item--card" data-id="${book.id}">
         <p class="item__label item__label--author">${book.author}</p>
@@ -169,18 +203,20 @@ class App {
   //////////// Local storage API
 
   _setLocalStorage() {
-    localStorage.setItem("books", JSON.stringify(this.#books));
+    localStorage.setItem("books", JSON.stringify(this.books));
   }
 
   _getLocalStorage() {
-    const data = JSON.parse(localStorage.getItem("books"));
+    const data: object[] = JSON.parse(localStorage.getItem("books"));
     if (!data) return;
     // Gather data
-    const restoredData = data.map((item) => Object.assign(Book(), item));
-    // Set data to books array
-    this.#books = restoredData;
+    const restoredData: BookSchema[] = data.map((item: BookSchema) =>
+      Book(item)
+    );
+    // Replace books array with data
+    this.books = restoredData;
     // Render each book onto library
-    this.#books.forEach((book) => this._renderBook(book));
+    this.books.map((book) => this._renderBook(book));
   }
 }
 
